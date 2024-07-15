@@ -6,11 +6,11 @@ node {
 
     stage('build') {
         echo 'Building out !!'
-        def mvnHome = 'C:\Users\rohit_khandagale\Downloads\apache-maven-3.9.8-bin\apache-maven-3.9.8'
-        def mavenCmd = "${mvnHome}/bin/mvn"
-        env.PATH = "${mvnHome}/bin;c:/Windows/System32"
+        def mvnHome = 'C:\\Users\\rohit_khandagale\\Downloads\\apache-maven-3.9.8-bin\\apache-maven-3.9.8'
+        def mavenCmd = "${mvnHome}\\bin\\mvn"
+        env.PATH = "${mvnHome}\\bin;c:\\Windows\\System32;${env.PATH}"
 
-        bat script: "${mavenCmd} package", label: ''
+        bat script: "${mavenCmd} clean package", label: 'Building with Maven'
     }
 
     stage('archiving') {
@@ -21,7 +21,7 @@ node {
     post {
         always {
             echo 'Pipeline finished'
-            step([$class: 'JUnitResultArchiver', testResults: '**/target/surefire-reports/*.xml'])
+            junit '**/target/surefire-reports/*.xml'
         }
     }
 }
