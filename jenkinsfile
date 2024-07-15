@@ -8,7 +8,7 @@ node {
         echo 'Building out !!'
         def mvnHome = 'C:/Users/pc/Downloads/apache-maven-3.6.3'
         def mavenCmd = "${mvnHome}/bin/mvn"
-        env.PATH = "${mvnHome}/bin;c:/Windows/System32"
+        env.PATH = "${mvnHome};c:/Windows/System32"
 
         bat script: "${mavenCmd} package", label: ''
     }
